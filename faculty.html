@@ -5,14 +5,197 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Faculty Directory | Michigan Amyloid Program</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .section-header { margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid #00274C; padding-bottom: 0.5rem; color: #00274C; }
+    .card { border-radius: 0.5rem; margin-bottom: 1rem; }
+    .filter-select { max-width: 300px; margin-bottom: 1rem; }
+    .faculty-card img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 0.5rem; }
+  </style>
 </head>
 <body>
   <div class="container py-5">
-    <h1>Faculty Directory</h1>
-    <p>This directory includes filterable listings of program faculty in hematology, cardiology, nephrology, neurology, and pathology.</p>
-    <!-- Placeholder cards for brevity -->
-    <div class="card p-3 mb-3"><h5>Dr. Monika Leja</h5><p>Cardiology</p></div>
-    <div class="card p-3 mb-3"><h5>Dr. Matthew Pianko</h5><p>Hematology / Oncology</p></div>
+    <h1 class="mb-4">Faculty Directory</h1>
+    <label for="specialtyFilter" class="form-label">Filter by Specialty:</label>
+    <select id="specialtyFilter" class="form-select filter-select">
+      <option value="all">Show All</option>
+      <option value="cardiology">Cardiology</option>
+      <option value="hematology_oncology">Hematology / Oncology</option>
+      <option value="nephrology">Nephrology</option>
+      <option value="neurology">Neurology</option>
+      <option value="pathology">Pathology</option>
+    </select>
+    <div class="row" id="facultyList">
+
+      <div class="col-md-4 faculty-card" data-specialty="hematology_oncology">
+        <div class="card p-3">
+          <img src="/images/faculty/matthew_pianko.jpg" alt="Dr. Matthew Pianko">
+          <h5>Dr. Matthew Pianko</h5>
+          <p>Clinical Associate Professor<br>Hematology / Oncology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="hematology_oncology">
+        <div class="card p-3">
+          <img src="/images/faculty/erica_campagnaro.jpg" alt="Dr. Erica Campagnaro">
+          <h5>Dr. Erica Campagnaro</h5>
+          <p>Clinical Associate Professor<br>Hematology / Oncology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="hematology_oncology">
+        <div class="card p-3">
+          <img src="/images/faculty/howard_terebelo.jpg" alt="Dr. Howard Terebelo">
+          <h5>Dr. Howard Terebelo</h5>
+          <p>Clinical Assistant Professor<br>Hematology / Oncology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="cardiology">
+        <div class="card p-3">
+          <img src="/images/faculty/monika_leja.jpg" alt="Dr. Monika Leja">
+          <h5>Dr. Monika Leja</h5>
+          <p>Clinical Associate Professor<br>Cardiology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="cardiology">
+        <div class="card p-3">
+          <img src="/images/faculty/david_dyke.jpg" alt="Dr. David Dyke">
+          <h5>Dr. David Dyke</h5>
+          <p>Clinical Associate Professor<br>Cardiology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="cardiology">
+        <div class="card p-3">
+          <img src="/images/faculty/todd_koelling.jpg" alt="Dr. Todd Koelling">
+          <h5>Dr. Todd Koelling</h5>
+          <p>Professor<br>Cardiology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="cardiology">
+        <div class="card p-3">
+          <img src="/images/faculty/robert_solomon.jpg" alt="Dr. Robert Solomon">
+          <h5>Dr. Robert Solomon</h5>
+          <p>Clinical Professor<br>Cardiology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="cardiology">
+        <div class="card p-3">
+          <img src="/images/faculty/scott_hummel.jpg" alt="Dr. Scott Hummel">
+          <h5>Dr. Scott Hummel</h5>
+          <p>Clinical Associate Professor<br>Cardiology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="nephrology">
+        <div class="card p-3">
+          <img src="/images/faculty/ilka_decker.jpg" alt="Dr. Ilka Decker">
+          <h5>Dr. Ilka Decker</h5>
+          <p>Clinical Assistant Professor<br>Nephrology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="neurology">
+        <div class="card p-3">
+          <img src="/images/faculty/benjamin_becker.jpg" alt="Dr. Benjamin Becker">
+          <h5>Dr. Benjamin Becker</h5>
+          <p>Assistant Professor<br>Neurology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="neurology">
+        <div class="card p-3">
+          <img src="/images/faculty/amro_stino.jpg" alt="Dr. Amro Stino">
+          <h5>Dr. Amro Stino</h5>
+          <p>Clinical Associate Professor<br>Neurology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="pathology">
+        <div class="card p-3">
+          <img src="/images/faculty/charles_ross.jpg" alt="Dr. Charles Ross">
+          <h5>Dr. Charles Ross</h5>
+          <p>Associate Professor<br>Pathology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 faculty-card" data-specialty="pathology">
+        <div class="card p-3">
+          <img src="/images/faculty/paul_killen.jpg" alt="Dr. Paul Killen">
+          <h5>Dr. Paul Killen</h5>
+          <p>Assistant Professor<br>Pathology</p>
+          <div class="mt-2">
+            <a href="#" class="btn btn-outline-primary btn-sm me-2">Clinical Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm">Academic Profile</a>
+          </div>
+        </div>
+      </div>
+    
+    </div>
   </div>
+  <script>
+    const filter = document.getElementById('specialtyFilter');
+    const cards = document.querySelectorAll('.faculty-card');
+    function filterFaculty() {
+      const selected = filter.value;
+      cards.forEach(card => {
+        const specialty = card.getAttribute('data-specialty');
+        card.style.display = (selected === 'all' || selected === specialty) ? 'block' : 'none';
+      });
+    }
+    filter.addEventListener('change', filterFaculty);
+    window.addEventListener('DOMContentLoaded', filterFaculty);
+  </script>
 </body>
 </html>

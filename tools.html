@@ -1,1 +1,197 @@
-<html><body><h1>Tools</h1><p>Interactive Mayo AL calculator and staging tools.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staging Tools | Michigan Amyloid Program</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; padding-top: 2rem; }
+    .calculator { background: #f8f9fa; padding: 2rem; border-radius: 0.5rem; max-width: 700px; margin: auto; }
+    .result-box { margin-top: 1rem; background: #fff; padding: 1rem; border: 1px solid #ccc; border-radius: 0.5rem; }
+    .copy-btn { margin-top: 0.5rem; }
+    h1, h2 { color: #00274C; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4 text-center">Mayo 2012 AL Amyloidosis Staging Calculator</h1>
+    <div class="calculator">
+      <form id="mayoCalc">
+        <div class="mb-3">
+          <label for="ntprobnp" class="form-label">NT-proBNP (pg/mL)</label>
+          <input type="number" class="form-control" id="ntprobnp" required />
+        </div>
+        <div class="mb-3">
+          <label for="troponin" class="form-label">Troponin T</label>
+          <div class="input-group">
+  <input type="number" class="form-control" id="troponin" step="0.001" required />
+  <select class="form-select" id="troponinType">
+    <option value="standard">ng/mL (Standard)</option>
+    <option value="hs">ng/L (High Sensitivity)</option>
+  </select>
+</div>
+        </div>
+        <div class="mb-3">
+          <label for="dflc" class="form-label">dFLC (mg/dL)</label>
+          <input type="number" class="form-control" id="dflc" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Calculate Stage</button>
+      </form>
+      <div class="result-box mt-4" id="resultBox" style="display:none;">
+        <h5>Staging Result</h5>
+        <p id="stageText"></p>
+        <textarea id="copyOutput" class="form-control" rows="3" readonly></textarea>
+        <button class="btn btn-outline-secondary btn-sm copy-btn" onclick="copyResult()">Copy to Clipboard</button>
+      </div>
+    </div>
+
+    <div class="mt-5 text-muted small text-center">
+      <p><strong>Estimates based on Mayo 2012 staging data:</strong></p>
+      <ul class="list-unstyled">
+        <li>Stage I: Median OS ~94 months</li>
+        <li>Stage II: OS ~40 months</li>
+        <li>Stage III: OS ~14 months</li>
+        <li>Stage IV: OS ~5.8 months</li>
+      </ul>
+      <p class="mt-2"><em>Note:</em> Progression-free survival (PFS) varies by treatment and is not reported by Mayo stage. For landmark PFS data, refer to treatment-specific studies (e.g., bortezomib-based induction + ASCT reports 2-yr PFS ~81%).</p>
+      <p>This tool is for educational purposes only and should not replace clinical judgment.</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('mayoCalc').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const ntprobnp = parseFloat(document.getElementById('ntprobnp').value);
+      const troponin = parseFloat(document.getElementById('troponin').value);
+      const dflc = parseFloat(document.getElementById('dflc').value);
+      let points = 0;
+      if (ntprobnp > 1800) points++;
+      const troponinType = document.getElementById("troponinType").value;
+      const troponinAdjusted = (troponinType === "hs") ? troponin / 1000 : troponin;
+      if (troponinAdjusted > 0.025) points++;
+      if (dflc > 18) points++;
+
+      const stageNames = ["Stage I", "Stage II", "Stage III", "Stage IV"];
+      const osMap = [
+  "Median OS: 94 months | Median PFS: 80%",
+  "Median OS: 40 months | Median PFS: 65%",
+  "Median OS: 14 months | Median PFS: 35%",
+  "Median OS: 5.8 months | Median PFS: 15%"
+];
+      const stage = stageNames[points];
+      const os = osMap[points];
+
+      const resultText = `${stage} AL amyloidosis\nNT-proBNP: ${ntprobnp} pg/mL | Troponin T: ${troponin} ${(troponinType === "hs") ? "ng/L (hs)" : "ng/mL"} | dFLC: ${dflc} mg/dL\n${os}`;
+      document.getElementById('stageText').textContent = resultText.replace(/\n/g, " ");
+      document.getElementById('copyOutput').value = resultText;
+      document.getElementById('resultBox').style.display = 'block';
+    });
+
+    function copyResult() {
+      const textArea = document.getElementById("copyOutput");
+      textArea.select();
+      document.execCommand("copy");
+    }
+  </script>
+
+<hr class="my-5">
+<div class="container">
+  <h2 class="text-center mb-4">ATTR Amyloidosis Staging Tools</h2>
+
+  <!-- Gillmore Calculator -->
+  <div class="calculator mb-5">
+    <h4>Gillmore ATTR-CM Staging (UK)</h4>
+    <form id="gillmoreCalc">
+      <div class="mb-3">
+        <label>NT-proBNP (pg/mL)</label>
+        <input type="number" id="g_ntprobnp" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label>eGFR (mL/min/1.73m²)</label>
+        <input type="number" id="g_egfr" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Calculate Gillmore Stage</button>
+    </form>
+    <div class="result-box mt-3" id="gillmoreResult" style="display:none;">
+      <p id="gillmoreOutput"></p>
+      <textarea class="form-control" id="gillmoreCopy" rows="2" readonly></textarea>
+      <button class="btn btn-outline-secondary btn-sm copy-btn" onclick="copyGillmore()">Copy</button>
+    </div>
+  </div>
+
+  <!-- Mayo ATTR Calculator -->
+  <div class="calculator mb-4">
+    <h4>Mayo Clinic ATTR-CM Staging</h4>
+    <form id="mayoAttrCalc">
+      <div class="mb-3">
+        <label>NT-proBNP (pg/mL)</label>
+        <input type="number" id="m_ntprobnp" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label>hs-Troponin T (ng/mL)</label>
+        <input type="number" id="m_trop" class="form-control" step="0.001" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Calculate Mayo ATTR Stage</button>
+    </form>
+    <div class="result-box mt-3" id="mayoAttrResult" style="display:none;">
+      <p id="mayoAttrOutput"></p>
+      <textarea class="form-control" id="mayoAttrCopy" rows="2" readonly></textarea>
+      <button class="btn btn-outline-secondary btn-sm copy-btn" onclick="copyMayoAttr()">Copy</button>
+    </div>
+  </div>
+
+  <div class="text-muted small">
+    <p><strong>References:</strong></p>
+    <ul>
+      <li>Gillmore JD et al., Eur Heart J. 2018;39(30):2799–2806.</li>
+      <li>Grogan M et al., Circ Heart Fail. 2016;9(9):e003079.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  document.getElementById('gillmoreCalc').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const ntprobnp = parseFloat(document.getElementById('g_ntprobnp').value);
+    const egfr = parseFloat(document.getElementById('g_egfr').value);
+    let stage = '';
+    let os = '';
+    if (ntprobnp <= 3000 && egfr >= 45) { stage = 'Stage I'; os = 'Median OS: ~69 months'; }
+    else if ((ntprobnp > 3000 && egfr >= 45) || (ntprobnp <= 3000 && egfr < 45)) { stage = 'Stage II'; os = 'Median OS: ~40 months'; }
+    else { stage = 'Stage III'; os = 'Median OS: ~24 months'; }
+
+    const result = `${stage} ATTR-CM\nNT-proBNP: ${ntprobnp} pg/mL | eGFR: ${egfr} mL/min/1.73m²\n${os}`;
+    document.getElementById('gillmoreOutput').innerText = result.replace(/\n/g, ' ');
+    document.getElementById('gillmoreCopy').value = result;
+    document.getElementById('gillmoreResult').style.display = 'block';
+  });
+
+  document.getElementById('mayoAttrCalc').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const ntprobnp = parseFloat(document.getElementById('m_ntprobnp').value);
+    const trop = parseFloat(document.getElementById('m_trop').value);
+    let score = 0;
+    if (ntprobnp > 3000) score++;
+    if (trop > 0.05) score++;
+
+    const stageMap = ['Stage I', 'Stage II', 'Stage III'];
+    const osMap = ['Median OS: ~66 months', 'Median OS: ~40 months', 'Median OS: ~20 months'];
+    const result = `${stageMap[score]} ATTR-CM\nNT-proBNP: ${ntprobnp} pg/mL | hs-Troponin T: ${trop} ng/mL\n${osMap[score]}`;
+    document.getElementById('mayoAttrOutput').innerText = result.replace(/\n/g, ' ');
+    document.getElementById('mayoAttrCopy').value = result;
+    document.getElementById('mayoAttrResult').style.display = 'block';
+  });
+
+  function copyGillmore() {
+    document.getElementById("gillmoreCopy").select();
+    document.execCommand("copy");
+  }
+
+  function copyMayoAttr() {
+    document.getElementById("mayoAttrCopy").select();
+    document.execCommand("copy");
+  }
+</script>
+</body>
+</html>
