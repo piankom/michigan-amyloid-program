@@ -29,5 +29,37 @@
         <a href="contact.html">Contact</a>
       </nav>
     </div>
-  </header><h1>GLAMM Journal Club Signup</h1><p>Form to join mailing list.</p></body></html>
+  </header><h1>GLAMM Journal Club Signup</h1><p>Form to join mailing list.</p>
+</body>
+<body>
+  <div class="container">
+    <h1>Contact the Michigan Amyloid Program</h1>
+    <p class="mb-4">Use the form below to send us a message. We’ll do our best to respond promptly.</p>
+    <form action="mailto:glamm-signup@umich.edu?subject=New%20Inquiry%20from%20Amyloid%20Program%20Site"
+          method="POST" enctype="text/plain">
+      <div class="mb-3">
+        <label for="name">Full Name</label>
+        <input type="text" name="Name" class="form-control" placeholder="Your full name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email">Email Address</label>
+        <input type="email" name="Email" class="form-control" placeholder="your@email.com" required>
+      </div>
+      <div class="mb-3 hidden-field">
+        <label for="fax">Leave this field blank</label>
+        <input type="text" name="Fax" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="message">Your Message</label>
+        <textarea name="Message" class="form-control" rows="6" placeholder="Type your message here..." required></textarea>
+      </div>
+      <!-- Optional CAPTCHA Placeholder -->
+      <div class="mb-3">
+        <small><i>CAPTCHA protection placeholder — can be enabled via UM ITS web hosting</i></small>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</body>
+</html>
 
